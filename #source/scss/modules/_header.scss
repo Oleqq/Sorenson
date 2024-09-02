@@ -1,0 +1,258 @@
+// header
+.header {
+
+
+
+    &__wrapper {
+        padding: 14px 0;
+        display: flex;
+        align-items: center;
+
+        border-bottom: 1px solid #212322;
+
+        position: relative;
+    }
+
+    // header__logo
+    &__logo {
+        display: flex;
+        width: fit-content;
+
+        padding: 0 28px;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -20px;
+            height: 200%;
+            width: 1px;
+            background-color: #212322;
+        }
+    }
+
+    // header__title
+    &__title {
+        display: flex;
+        height: fit-content;
+
+        flex: 1;
+
+        padding: 0px 0px 0px 26px;
+
+        svg {
+            @media (max-width:467px) {
+                width: 220px;
+            }
+        }
+        @media (max-width:395px) {
+            display: none;
+        }
+    }
+
+    // header__nav 
+    &__nav {
+        padding: 0 4rem 0 0;
+        ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            gap: 4rem;
+
+            @media (max-width:1380px) {
+                gap: 3rem;
+            }
+            @media (max-width:1099px) {
+                gap: 2rem;
+            }
+            @media (max-width:899px) {
+                display: none;
+            }
+
+
+            li {
+
+                a {
+                    font-family: var(--second-family);
+                    font-weight: 450;
+                    font-size: 18px;
+                    letter-spacing: 0.01em;
+                    text-transform: uppercase;
+                    color: #212322;
+
+                    text-decoration-color: transparent;
+                    text-underline-offset: 4px;
+                    text-decoration-thickness: 1.5px;
+
+                    transition: .5s ease;
+
+                    &:hover {
+                        transition: .5s ease;
+                        text-decoration: underline;
+                        text-decoration-color: inherit;
+                        text-decoration-thickness: 1.5px;
+
+                        text-shadow: 0 0 1px #212322;
+                    }
+
+                    @media (max-width:1660px) {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.burger-menu {
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 100%;
+    position: absolute;
+    .menu {
+      top: 0;
+      left: 0;
+      margin: 0;
+      z-index: 1;
+      width: 100%;
+      background: #596b63;
+      padding: 2rem 0;
+      position: absolute;
+      transform: translateY(-100%);
+      transition: transform .5s ease-out;
+      &.active {
+        transform: translateY(0);
+      }
+      li {
+        list-style: none;
+        a {
+          padding: 1em;
+          color: #fff;
+          display: block;
+          background: none;
+          text-align: center;
+          text-decoration: none;
+          transition: background 0.2s ease-in-out;
+
+          font-family: var(--second-family);
+          font-weight: 450;
+          font-size: 22px;
+          letter-spacing: 0.01em;
+          text-transform: uppercase;
+          color: #fff;
+          
+
+          span {
+           
+          }
+          &:hover, &:focus, &:active {
+            background: rgba(255,255,255,0.2);
+          }
+        }
+      }
+    }
+  }
+  
+  .menu-toggle {
+    top: 24px;
+    z-index: 2;
+    right: 24px;
+    width: 22px;
+    height: 4px; // If you have *{box-sizing:border-box} applied, you'll want to change this to 20px
+    padding: 8px 0;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    
+    display: none;
+    
+    @media (max-width:899px) {
+        display: block;
+    }
+
+    span {
+      height: 2px;
+      display: block;
+      overflow: hidden;
+      text-indent: 100%;
+      background: #212322;
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: background 0.3s ease-in-out;
+    }
+    &::before, &::after {
+      left: 0;
+      content: '';
+      width: 22px;
+      height: 2px;
+      background: #212322;
+      border-radius: 2px;
+      position: absolute;
+      transform-origin: center center;
+      transition: width 0.2s ease-in-out, background 0.2s ease-in-out, transform 0.2s ease-in-out, top 0.2s ease-in-out, bottom 0.2s ease-in-out, left 0.2s ease-in-out, right 0.2s ease-in-out;
+    }
+    &::before {
+      top: 0;
+    }
+    &::after {
+      bottom: 0;
+    }
+    &.menu-open {
+      span {
+        background: rgba(255,255,255,0);
+      }
+      &::before {
+        top: 9px;
+        transform: rotate(-45deg);
+      }
+      &::after {
+        bottom: 8px;
+        transform: rotate(45deg);
+      }
+      &::before, &::after {
+        width: 26px;
+        background: #fff;
+      }
+      &:hover, &:focus, &:active {
+        span {
+          background: rgba(255,255,255,0);
+        }
+        &::before {
+          top: 8px;
+          left: -3px;
+          transform: rotate(-45deg);
+        }
+        &::after {
+          left: 9px;
+          bottom: 10px;
+          transform: rotate(45deg)
+        }
+        &::before, &::after {
+          width: 18px;
+        }
+      }
+    }
+    &:hover, &:focus, &:active {
+      span {
+        background: rgba(255,255,255,0);
+      }
+      &::before {
+        top: 8px;
+        left: -3px;
+        transform: rotate(45deg);
+      }
+      &::after {
+        left: 9px;
+        bottom: 10px;
+        transform: rotate(-45deg)
+      }
+      &::before, &::after {
+        width: 18px;
+      }
+    }
+  }

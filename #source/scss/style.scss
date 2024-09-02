@@ -2,3 +2,41 @@
 @import "normalize.scss";
 @import "modules/custom.scss";
 
+
+
+// header.scss
+@import "modules/header";
+
+// footer.scss
+@import "modules/footer";
+
+// abouts.scss
+@import "modules/about";
+
+
+
+.bg-svg {
+
+
+    &-1 {
+        position: absolute;
+        z-index: -1;
+
+        right: -9px;
+        top: -125px;
+            @media (max-width:767px) {
+                display: none;
+            }
+    }
+
+    &-2 {
+        position: absolute;
+        display: none;
+        z-index: -1;
+
+        right: 0;
+            @media (max-width:767px) {
+                display: block;
+            }
+    }
+}
