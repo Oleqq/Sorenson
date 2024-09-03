@@ -62,10 +62,28 @@ document.addEventListener("DOMContentLoaded", function () {
   artistBlocks.forEach((block, index) => {
     block.addEventListener("click", function () {
       // Remove 'active' class from all blocks
-      artistBlocks.forEach((b) => b.classList.remove("service-item__block--active"));
+      artistBlocks.forEach((b) => {
+        b.classList.remove("service-item__block--active");
+
+        // Find SVGs within each block
+        const firstSvg = b.querySelector("h3.service-item__title > svg:first-of-type");
+        const secondSvg = b.querySelector("h3.service-item__title > svg:last-of-type");
+
+        // Reset SVG visibility
+        if (firstSvg) firstSvg.style.display = "block";
+        if (secondSvg) secondSvg.style.display = "none";
+      });
 
       // Add 'active' class to the clicked block
       block.classList.add("service-item__block--active");
+
+      // Find SVGs within the clicked block
+      const firstSvg = block.querySelector("h3.service-item__title > svg:first-of-type");
+      const secondSvg = block.querySelector("h3.service-item__title > svg:last-of-type");
+
+      // Toggle SVG visibility
+      if (firstSvg) firstSvg.style.display = "none";
+      if (secondSvg) secondSvg.style.display = "block";
     });
   });
 });
