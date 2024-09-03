@@ -49,3 +49,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("click", closeMenu, false);
 });
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all the artist blocks
+  const artistBlocks = document.querySelectorAll(".service-item__block");
+
+  artistBlocks.forEach((block, index) => {
+    block.addEventListener("click", function () {
+      // Remove 'active' class from all blocks
+      artistBlocks.forEach((b) => b.classList.remove("service-item__block--active"));
+
+      // Add 'active' class to the clicked block
+      block.classList.add("service-item__block--active");
+    });
+  });
+});
