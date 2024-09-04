@@ -5,16 +5,48 @@
         background-color: #dadedc;
         padding: 3rem 0;
 
+        .swiper-custom-controls {
+            display: none;
+            @media (max-width:991px) {
+                display: flex;
+
+            }
+        }
+
         &__wrapper {
 
             display: flex;
             justify-content: space-between;
 
             gap: 1.5rem;
+
+            @media (max-width:991px) {
+                margin-bottom: 3rem;
+            }
+
+            .swiper-wrapper {
+                @media (min-width:991px) {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    gap: 1.5rem;
+                }
+
+                .news__card {
+                    @media (min-width:991px) {
+                        width: fit-content;
+                    }
+                }
+            }
+           
         }
 
         &__img {
             margin-bottom: 1.5rem;
+
+
+            @media (max-width:567px) {
+                display: none;
+            }
 
             img {
                 width: 100%;
@@ -30,7 +62,7 @@
     &__card {
         background-color: #fff;
         border-radius: 12px;
-        padding: 2rem 1rem 1rem;
+        
 
         &--date {
             font-family: var(--font-family);
@@ -40,6 +72,8 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: #596b63;
+
+            padding: 2rem 1rem 1rem;
         }
 
         h5 {
@@ -61,7 +95,7 @@
 
             margin: 1rem 0;
 
-            padding-right: 1rem;
+            padding: 0rem 1rem 0rem;
         }
 
         p {
@@ -81,6 +115,8 @@
             -webkit-line-clamp: 3;
             line-clamp: 3;
             -webkit-box-orient: vertical;
+
+            padding: 0rem 1rem 1rem;
         }
 
 
@@ -88,6 +124,8 @@
             display: flex;
             flex-wrap: wrap;
             gap: .5rem;
+
+            padding: 0rem 1rem 1rem;
         }
         &--tag {
             font-family: var(--second-family);
@@ -124,6 +162,8 @@
             cursor: pointer;
 
             width: fit-content;
+
+            padding: 0rem 1rem 1rem;
 
             svg {
                 transition: 1s ease;

@@ -184,16 +184,118 @@ document.addEventListener("DOMContentLoaded", function () {
       if (window.innerWidth <= 991 && !swiperInstance) {
           swiperInstance = new Swiper('.news-index__wrapper', {
               slidesPerView: 2,
-              spaceBetween: 10,
+              spaceBetween: 24,
               pagination: {
                   el: '.swiper-pagination',
                   clickable: true,
               },
               navigation: {
-                  nextEl: '.news__card-button-prev',
-                  prevEl: '.news__card-button-next',
+                  nextEl: '.news__card-button-next',
+                  prevEl: '.news__card-button-prev',
               },
+              on: {
+                  slideChange: function () {
+                      const current = swiperInstance.realIndex + 1; // Current slide index (1-based)
+                      const total = swiperInstance.slides.length; // Total number of slides
+
+                      // Update the custom pagination
+                      document.querySelector('.custom-pagination-current').textContent = current.toString().padStart(2, '0');
+                      document.querySelector('.custom-pagination-total').textContent = total.toString().padStart(2, '0');
+                  }
+              },
+              breakpoints: {
+                2560: {
+                  slidesPerView: 3,
+                },
+                1920: {
+                  slidesPerView: 2,
+                },
+                991: {
+                  slidesPerView: 2,
+                },
+                767: {
+                  slidesPerView: 2,
+                },
+                567: {
+                  slidesPerView: 1,
+                },
+                0: {
+                  slidesPerView: 1,
+                },
+              }
           });
+
+          // Initialize pagination with the correct numbers
+          const initialTotal = swiperInstance.slides.length; // Total number of slides
+          document.querySelector('.custom-pagination-current').textContent = '01';
+          document.querySelector('.custom-pagination-total').textContent = initialTotal.toString().padStart(2, '0');
+      } else if (window.innerWidth > 991 && swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
+      }
+  }
+
+  // Initialize swiper on page load if necessary
+  initSwiper();
+
+  // Re-initialize swiper on window resize
+  window.addEventListener('resize', function () {
+      initSwiper();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  let swiperInstance;
+
+  function initSwiper() {
+      if (window.innerWidth <= 991 && !swiperInstance) {
+          swiperInstance = new Swiper('.nums__wrapper', {
+              slidesPerView: 2,
+              spaceBetween: 24,
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+              },
+              navigation: {
+                  nextEl: '.nums-button-next',
+                  prevEl: '.nums-button-prev',
+              },
+              on: {
+                  slideChange: function () {
+                      const current = swiperInstance.realIndex + 1; // Current slide index (1-based)
+                      const total = swiperInstance.slides.length; // Total number of slides
+
+                      // Update the custom pagination
+                      document.querySelector('.nums-pagination-current').textContent = current.toString().padStart(2, '0');
+                      document.querySelector('.nums-pagination-total').textContent = total.toString().padStart(2, '0');
+                  }
+              },
+              breakpoints: {
+                2560: {
+                  slidesPerView: 3,
+                },
+                1920: {
+                  slidesPerView: 2,
+                },
+                991: {
+                  slidesPerView: 2,
+                },
+                767: {
+                  slidesPerView: 2,
+                },
+                567: {
+                  slidesPerView: 1,
+                },
+                0: {
+                  slidesPerView: 1,
+                },
+              }
+          });
+
+          // Initialize pagination with the correct numbers
+          const initialTotal = swiperInstance.slides.length; // Total number of slides
+          document.querySelector('.nums-pagination-current').textContent = '01';
+          document.querySelector('.nums-pagination-total').textContent = initialTotal.toString().padStart(2, '0');
       } else if (window.innerWidth > 991 && swiperInstance) {
           swiperInstance.destroy(true, true);
           swiperInstance = null;
@@ -210,24 +312,3 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  const swiper = new Swiper('.swiper-container', {
-      loop: true,
-      navigation: {
-          nextEl: '.custom-swiper-button-next',
-          prevEl: '.custom-swiper-button-prev',
-      },
-      on: {
-          slideChange: function () {
-              const current = swiper.realIndex + 1; // Current slide index
-              const total = swiper.slides.length - 2; // Total number of slides
-              document.querySelector('.custom-pagination-current').textContent = current.toString().padStart(2, '0');
-              document.querySelector('.custom-pagination-total').textContent = total.toString().padStart(2, '0');
-          }
-      }
-  });
-
-  // Initialize pagination with the correct numbers
-  document.querySelector('.custom-pagination-current').textContent = '01';
-  document.querySelector('.custom-pagination-total').textContent = '03'; // Update this to reflect the actual total
-});

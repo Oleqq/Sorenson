@@ -514,9 +514,44 @@
 .nums {
   padding: 8rem 0 ;
   background: #596b63;
+
+  @media (max-width:767px) {
+    padding: 4rem 0;
+  }
+
+  .swiper-custom-controls {
+    display: none;
+    @media (max-width:991px) {
+      display: flex;
+    }
+    .custom-pagination {
+      color: #faf2d6;
+      font-weight: 300;
+      font-family: var(--second-family);
+    }
+    .nums-pagination-total {
+      opacity: .5;
+    }
+  }
+  .swiper-wrapper {
+    @media (max-width:991px) {
+      margin-bottom: 8rem;
+    }
+
+    justify-content: space-between;
+
+    .swiper-slide {
+      width: fit-content;
+
+    }
+  }
+
   &__wrapper {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+
+    
   }
   &__card {
     display: flex;
@@ -711,30 +746,44 @@
 .swiper-custom-controls {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  align-items: flex-end;
 }
 
 .custom-pagination {
   display: flex;
   align-items: center;
-  font-family: Arial, sans-serif;
-  color: #7D8285;
+  gap: 7px;
+
+  font-family: var(--font-family);
+  font-weight: 400;
   font-size: 18px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #212322;
 
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
   z-index: 10;
+
+  &-current {
+    color: #212322;
+  }
+
+  &-total {
+    opacity: 0.5;
+  }
+  
 }
 
-.custom-pagination-current {
-  color: #000;
-}
+
+
 
 .custom-navigation {
 
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
+
   display: flex;
   gap: 10px;
   z-index: 10;
