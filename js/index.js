@@ -4,7 +4,7 @@ accordionItemHeaders.forEach(accordionItemHeader => {
     accordionItemHeader.classList.toggle("active");
     const accordionItemBody = accordionItemHeader.nextElementSibling;
     if(accordionItemHeader.classList.contains("active")) {
-      accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
+      accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + 24 + "px";
     }
     else {
       accordionItemBody.style.maxHeight = 0;
@@ -311,4 +311,169 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  let swiperInstance;
 
+  function initSwiper() {
+      if (window.innerWidth <= 991 && !swiperInstance) {
+          swiperInstance = new Swiper('.we-do__slider', {
+              slidesPerView: 1,
+              spaceBetween: 24,
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+              },
+              navigation: {
+                  nextEl: '.we-do__slider-button-next',
+                  prevEl: '.we-do__slider-button-prev',
+              },
+              on: {
+                  slideChange: function () {
+                      const current = swiperInstance.realIndex + 1; // Current slide index (1-based)
+                      const total = swiperInstance.slides.length; // Total number of slides
+
+                      // Update the custom pagination
+                      document.querySelector('.we-do__slider-pagination-current').textContent = current.toString().padStart(2, '0');
+                      document.querySelector('.we-do__slider-pagination-total').textContent = total.toString().padStart(2, '0');
+                  }
+              },
+              
+          });
+
+          // Initialize pagination with the correct numbers
+          const initialTotal = swiperInstance.slides.length; // Total number of slides
+          document.querySelector('.we-do__slider-pagination-current').textContent = '01';
+          document.querySelector('.we-do__slider-pagination-total').textContent = initialTotal.toString().padStart(2, '0');
+      } else if (window.innerWidth > 991 && swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
+      }
+  }
+
+  // Initialize swiper on page load if necessary
+  initSwiper();
+
+  // Re-initialize swiper on window resize
+  window.addEventListener('resize', function () {
+      initSwiper();
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let swiperInstance;
+
+  function initSwiper() {
+      if (window.innerWidth <= 991 && !swiperInstance) {
+          swiperInstance = new Swiper('.recent-spotlight__wrapper', {
+              slidesPerView: 1,
+              spaceBetween: 24,
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+              },
+              navigation: {
+                  nextEl: '.recent-spotlight__slider-button-next',
+                  prevEl: '.recent-spotlight__slider-button-prev',
+              },
+              breakpoints: {
+                2560: {
+                  slidesPerView: 3,
+                },
+                1920: {
+                  slidesPerView: 2,
+                },
+                991: {
+                  slidesPerView: 2,
+                },
+                767: {
+                  slidesPerView: 2,
+                },
+                567: {
+                  slidesPerView: 1,
+                },
+                0: {
+                  slidesPerView: 1,
+                },
+              },
+              on: {
+                  slideChange: function () {
+                      const current = swiperInstance.realIndex + 1; // Current slide index (1-based)
+                      const total = swiperInstance.slides.length; // Total number of slides
+
+                      // Update the custom pagination
+                      document.querySelector('.recent-spotlight__slider-pagination-current').textContent = current.toString().padStart(2, '0');
+                      document.querySelector('.recent-spotlight__slider-pagination-total').textContent = total.toString().padStart(2, '0');
+                  }
+              },
+              
+          });
+
+          // Initialize pagination with the correct numbers
+          const initialTotal = swiperInstance.slides.length; // Total number of slides
+          document.querySelector('.we-do__slider-pagination-current').textContent = '01';
+          document.querySelector('.we-do__slider-pagination-total').textContent = initialTotal.toString().padStart(2, '0');
+      } else if (window.innerWidth > 991 && swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
+      }
+  }
+
+  // Initialize swiper on page load if necessary
+  initSwiper();
+
+  // Re-initialize swiper on window resize
+  window.addEventListener('resize', function () {
+      initSwiper();
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let swiperInstance;
+
+  function initSwiper() {
+      if (window.innerWidth <= 991 && !swiperInstance) {
+          swiperInstance = new Swiper('.portfolio__grid', {
+              slidesPerView: 4, // Показывать 4 слайда одновременно
+              slidesPerGroup: 4, // Перемещаться по 4 слайда за раз
+              
+              spaceBetween: 24, // Расстояние между слайдами
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+              },
+              navigation: {
+                  nextEl: '.portfolio__grid-button-next',
+                  prevEl: '.portfolio__grid-button-prev',
+              },
+              on: {
+                  slideChange: function () {
+                      const current = swiperInstance.realIndex + 1; // Текущий индекс (1-based)
+                      const total = swiperInstance.slides.length; // Общее количество слайдов
+
+                      // Обновить пользовательскую пагинацию
+                      document.querySelector('.portfolio__grid-pagination-current').textContent = current.toString().padStart(2, '0');
+                      document.querySelector('.portfolio__grid-pagination-total').textContent = total.toString().padStart(2, '0');
+                  }
+              },
+          });
+
+          // Инициализация пагинации с правильными числами
+          const initialTotal = swiperInstance.slides.length; // Общее количество слайдов
+          document.querySelector('.portfolio__grid-pagination-current').textContent = '01';
+          document.querySelector('.portfolio__grid-pagination-total').textContent = initialTotal.toString().padStart(2, '0');
+      } else if (window.innerWidth > 991 && swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
+      }
+  }
+
+  // Инициализация Swiper при загрузке страницы
+  initSwiper();
+
+  // Переинициализация Swiper при изменении размера окна
+  window.addEventListener('resize', function () {
+      initSwiper();
+  });
+});
