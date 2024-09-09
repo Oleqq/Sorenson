@@ -435,10 +435,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function initSwiper() {
       if (window.innerWidth <= 991 && !swiperInstance) {
           swiperInstance = new Swiper('.portfolio__grid', {
-              slidesPerView: 4, // Показывать 4 слайда одновременно
-              slidesPerGroup: 4, // Перемещаться по 4 слайда за раз
+              slidesPerView: 4, 
+              slidesPerGroup: 4, 
               
-              spaceBetween: 24, // Расстояние между слайдами
+              spaceBetween: 24, 
               pagination: {
                   el: '.swiper-pagination',
                   clickable: true,
@@ -449,18 +449,18 @@ document.addEventListener("DOMContentLoaded", function () {
               },
               on: {
                   slideChange: function () {
-                      const current = swiperInstance.realIndex + 1; // Текущий индекс (1-based)
-                      const total = swiperInstance.slides.length; // Общее количество слайдов
+                      const current = swiperInstance.realIndex + 1; 
+                      const total = swiperInstance.slides.length; 
 
-                      // Обновить пользовательскую пагинацию
+                      
                       document.querySelector('.portfolio__grid-pagination-current').textContent = current.toString().padStart(2, '0');
                       document.querySelector('.portfolio__grid-pagination-total').textContent = total.toString().padStart(2, '0');
                   }
               },
           });
 
-          // Инициализация пагинации с правильными числами
-          const initialTotal = swiperInstance.slides.length; // Общее количество слайдов
+        
+          const initialTotal = swiperInstance.slides.length; 
           document.querySelector('.portfolio__grid-pagination-current').textContent = '01';
           document.querySelector('.portfolio__grid-pagination-total').textContent = initialTotal.toString().padStart(2, '0');
       } else if (window.innerWidth > 991 && swiperInstance) {
@@ -469,11 +469,142 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   }
 
-  // Инициализация Swiper при загрузке страницы
+
   initSwiper();
 
-  // Переинициализация Swiper при изменении размера окна
+
   window.addEventListener('resize', function () {
       initSwiper();
   });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const blogCards = document.querySelectorAll('.blog-card');
+  const loadMoreButton = document.querySelector('.blog-list__more');
+  let visibleCards = 9;
+
+  function showCards() {
+      blogCards.forEach((card, index) => {
+          if (index < visibleCards) {
+              card.style.display = 'block';
+          } else {
+              card.style.display = 'none';
+          }
+      });
+  }
+
+  showCards();
+
+  loadMoreButton.addEventListener('click', () => {
+      visibleCards += 9;
+      showCards();
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Объявляем переменные
+  const whatWeDoLink = document.querySelector('#whatWeDoLink');
+  const submenu = document.querySelector('.header__submenu');
+  const whatWeDoLinkMobile = document.querySelector('#whatWeDoLinkMobile');
+  const submenuMobile = document.querySelector('.submenu-mobile');
+  const mobileBack = document.querySelector('.mobile-back');
+  const burgerMenu = document.querySelector('.burger-menu'); // Добавляем ссылку на элемент с классом burger-menu
+  const menu = burgerMenu ? burgerMenu.querySelector('.menu') : null; // Находим элемент .menu внутри burger-menu
+  const headerSecondary = document.querySelector('.header.secondary'); // Добавляем ссылку на элемент с классом header.secondary
+  let hideTimeout;
+
+  // Функция для обновления классов на header.secondary
+  function updateHeaderSecondary() {
+    const submenuActive = submenu.classList.contains('active');
+    const menuActive = menu && menu.classList.contains('active');
+
+    if (submenuActive || menuActive) {
+      headerSecondary.classList.add('active');
+    } else {
+      headerSecondary.classList.remove('active');
+    }
+  }
+
+  // Обработка клика на #whatWeDoLink
+  whatWeDoLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    clearTimeout(hideTimeout);  
+    submenu.classList.toggle('active');
+    updateHeaderSecondary(); // Обновляем класс на header.secondary
+  });
+
+  // Обработка наведения на #whatWeDoLink
+  whatWeDoLink.addEventListener('mouseover', function() {
+    clearTimeout(hideTimeout);  
+    submenu.classList.add('active');
+    updateHeaderSecondary(); // Обновляем класс на header.secondary
+  });
+
+  // Обработка ухода мыши с #whatWeDoLink
+  whatWeDoLink.addEventListener('mouseout', function() {
+    hideTimeout = setTimeout(function() {
+      submenu.classList.remove('active');
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    }, 300);  
+  });
+
+  // Обработка наведения на submenu
+  submenu.addEventListener('mouseover', function() {
+    clearTimeout(hideTimeout);  
+    submenu.classList.add('active');
+    updateHeaderSecondary(); // Обновляем класс на header.secondary
+  });
+
+  // Обработка ухода мыши с submenu
+  submenu.addEventListener('mouseout', function() {
+    hideTimeout = setTimeout(function() {
+      submenu.classList.remove('active');
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    }, 100);  
+  });
+
+  // Обработка клика на #whatWeDoLinkMobile
+  if (whatWeDoLinkMobile) {
+    whatWeDoLinkMobile.addEventListener('click', function(e) {
+      e.preventDefault();
+      submenuMobile.classList.add('active');
+      mobileBack.classList.add('active');
+      if (menu) {
+        menu.classList.add('submenu-open'); // Добавляем класс submenu-open
+      }
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    });
+  }
+
+  // Обработка клика на mobile-back
+  if (mobileBack) {
+    mobileBack.addEventListener('click', function() {
+      submenuMobile.classList.remove('active');
+      mobileBack.classList.remove('active');
+      if (menu) {
+        menu.classList.remove('submenu-open'); // Убираем класс submenu-open
+      }
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    });
+  }
+
+  // Функция для отслеживания изменений класса у menu
+  function observeMenuClassChanges() {
+    if (menu) {
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === 'class') {
+            updateHeaderSecondary(); // Обновляем класс на header.secondary
+          }
+        });
+      });
+
+      observer.observe(menu, { attributes: true });
+    }
+  }
+
+  observeMenuClassChanges(); // Запускаем наблюдение за изменениями класса у menu
 });
