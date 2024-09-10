@@ -331,14 +331,22 @@ main {
 // select2
 
 .select2 {
-    width: 400px;
-    padding: 14px 22px;
+    width: 300px;
+     max-width: 300px;
+    padding: 7px 11px;
+
     border: 1px solid #000;
     border-radius: 34px;
+
+    @media (max-width:676px) {
+        width: 150px;
+    }
 }
 .select2-selection {
-    
-}
+    @media (max-width:991px) {
+        text-transform: uppercase;
+    }
+}   
 .select2-selection__rendered {
     font-family: var(--second-family);
     font-weight: 450;
@@ -371,6 +379,8 @@ main {
     padding-left: 42px;
 
     margin-bottom: 12px;
+    
+    text-transform: uppercase;
 
     &::before {
         content: '';
@@ -435,3 +445,28 @@ main {
     width: 100%;
     z-index: 1051;
 }
+
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    display: none; /* Скрываем стандартную стрелочку */
+  }
+  
+  .select2-container--default .select2-selection--single .custom-icon {
+    position: absolute;
+    right: 10px; /* Отступ от правого края контейнера */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Чтобы иконка не мешала взаимодействию с текстом */
+    transition: .2s ease;
+
+     &.rotated {
+        transition: .2s ease;
+        transform: rotate(180deg) translateY(50%);
+     }
+  }
+  
+  .select2-container--default .select2-selection--single {
+    position: relative; /* Чтобы иконка находилась внутри этого контейнера */
+    padding-right: 30px; /* Оставляем место для иконки */
+  }
+  

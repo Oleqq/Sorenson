@@ -1,3 +1,5 @@
+
+
 const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
 accordionItemHeaders.forEach(accordionItemHeader => {
   accordionItemHeader.addEventListener("click", event => {
@@ -54,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
   // Get the parent container or element with class 'service-item'
   const serviceItem = document.querySelector(".service-item");
@@ -79,31 +80,31 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initial class setting based on initial state
   updateServiceItemClass();
 
-  artistBlocks.forEach((block, index) => {
+  artistBlocks.forEach((block) => {
     block.addEventListener("click", function () {
       // Remove 'active' class from all blocks
       artistBlocks.forEach((b) => {
         b.classList.remove("service-item__block--active");
 
-        // Find SVGs within each block
-        const firstSvg = b.querySelector("h3.service-item__title > svg:first-of-type");
-        const secondSvg = b.querySelector("h3.service-item__title > svg:last-of-type");
+        // Find images within each block
+        const firstImg = b.querySelector("h3.service-item__title > img:first-of-type");
+        const secondImg = b.querySelector("h3.service-item__title > img:last-of-type");
 
-        // Reset SVG visibility
-        if (firstSvg) firstSvg.style.display = "block";
-        if (secondSvg) secondSvg.style.display = "none";
+        // Reset image visibility
+        if (firstImg) firstImg.style.display = "block";
+        if (secondImg) secondImg.style.display = "none";
       });
 
       // Add 'active' class to the clicked block
       block.classList.add("service-item__block--active");
 
-      // Find SVGs within the clicked block
-      const firstSvg = block.querySelector("h3.service-item__title > svg:first-of-type");
-      const secondSvg = block.querySelector("h3.service-item__title > svg:last-of-type");
+      // Find images within the clicked block
+      const firstImg = block.querySelector("h3.service-item__title > img:first-of-type");
+      const secondImg = block.querySelector("h3.service-item__title > img:last-of-type");
 
-      // Toggle SVG visibility
-      if (firstSvg) firstSvg.style.display = "none";
-      if (secondSvg) secondSvg.style.display = "block";
+      // Toggle image visibility
+      if (firstImg) firstImg.style.display = "none";
+      if (secondImg) secondImg.style.display = "block";
 
       // Update the parent service-item class
       updateServiceItemClass();
@@ -121,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
   // Function to animate the numbers
@@ -177,6 +177,172 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const blogCards = document.querySelectorAll('.blog-card');
+  const loadMoreButton = document.querySelector('.blog-list__more');
+  let visibleCards = window.innerWidth < 567 ? 3 : 9; // Начальное количество карточек
+
+  function showCards() {
+      blogCards.forEach((card, index) => {
+          if (index < visibleCards) {
+              card.style.display = 'block';
+          } else {
+              card.style.display = 'none';
+          }
+      });
+  }
+
+  function updateVisibleCards() {
+    if (window.innerWidth < 567) {
+      visibleCards = Math.min(visibleCards + 3, blogCards.length);
+    } else {
+      visibleCards = Math.min(visibleCards + 9, blogCards.length);
+    }
+    showCards();
+  }
+
+  showCards();
+
+  loadMoreButton.addEventListener('click', () => {
+    updateVisibleCards();
+  });
+
+  window.addEventListener('resize', () => {
+    // Обновление видимых карточек при изменении размера экрана
+    visibleCards = window.innerWidth < 567 ? Math.min(visibleCards, 3) : Math.min(visibleCards, 9);
+    showCards();
+  });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Объявляем переменные
+  const whatWeDoLink = document.querySelector('#whatWeDoLink');
+  const submenu = document.querySelector('.header__submenu');
+  const whatWeDoLinkMobile = document.querySelector('#whatWeDoLinkMobile');
+  const submenuMobile = document.querySelector('.submenu-mobile');
+  const mobileBack = document.querySelector('.mobile-back');
+  const burgerMenu = document.querySelector('.burger-menu'); // Добавляем ссылку на элемент с классом burger-menu
+  const menu = burgerMenu ? burgerMenu.querySelector('.menu') : null; // Находим элемент .menu внутри burger-menu
+  const headerSecondary = document.querySelector('.header.secondary'); // Добавляем ссылку на элемент с классом header.secondary
+  let hideTimeout;
+
+  // Функция для обновления классов на header.secondary
+  function updateHeaderSecondary() {
+    const submenuActive = submenu.classList.contains('active');
+    const menuActive = menu && menu.classList.contains('active');
+
+    if (submenuActive || menuActive) {
+      headerSecondary.classList.add('active');
+    } else {
+      headerSecondary.classList.remove('active');
+    }
+  }
+
+  // Обработка клика на #whatWeDoLink
+  whatWeDoLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    clearTimeout(hideTimeout);  
+    submenu.classList.toggle('active');
+    updateHeaderSecondary(); // Обновляем класс на header.secondary
+  });
+
+  // Обработка наведения на #whatWeDoLink
+  whatWeDoLink.addEventListener('mouseover', function() {
+    clearTimeout(hideTimeout);  
+    submenu.classList.add('active');
+    updateHeaderSecondary(); // Обновляем класс на header.secondary
+  });
+
+  // Обработка ухода мыши с #whatWeDoLink
+  whatWeDoLink.addEventListener('mouseout', function() {
+    hideTimeout = setTimeout(function() {
+      submenu.classList.remove('active');
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    }, 300);  
+  });
+
+  // Обработка наведения на submenu
+  submenu.addEventListener('mouseover', function() {
+    clearTimeout(hideTimeout);  
+    submenu.classList.add('active');
+    updateHeaderSecondary(); // Обновляем класс на header.secondary
+  });
+
+  // Обработка ухода мыши с submenu
+  submenu.addEventListener('mouseout', function() {
+    hideTimeout = setTimeout(function() {
+      submenu.classList.remove('active');
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    }, 100);  
+  });
+
+  // Обработка клика на #whatWeDoLinkMobile
+  if (whatWeDoLinkMobile) {
+    whatWeDoLinkMobile.addEventListener('click', function(e) {
+      e.preventDefault();
+      submenuMobile.classList.add('active');
+      mobileBack.classList.add('active');
+      if (menu) {
+        menu.classList.add('submenu-open'); // Добавляем класс submenu-open
+      }
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    });
+  }
+
+  // Обработка клика на mobile-back
+  if (mobileBack) {
+    mobileBack.addEventListener('click', function() {
+      submenuMobile.classList.remove('active');
+      mobileBack.classList.remove('active');
+      if (menu) {
+        menu.classList.remove('submenu-open'); // Убираем класс submenu-open
+      }
+      updateHeaderSecondary(); // Обновляем класс на header.secondary
+    });
+  }
+
+  // Функция для отслеживания изменений класса у menu
+  function observeMenuClassChanges() {
+    if (menu) {
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === 'class') {
+            updateHeaderSecondary(); // Обновляем класс на header.secondary
+          }
+        });
+      });
+
+      observer.observe(menu, { attributes: true });
+    }
+  }
+
+  observeMenuClassChanges(); // Запускаем наблюдение за изменениями класса у menu
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// _______________________________________________________________________ swiper js _______________________________________________________________________
 document.addEventListener("DOMContentLoaded", function () {
   let swiperInstance;
 
@@ -478,133 +644,50 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  let swiperInstance;
 
+  function initSwiper() {
+      if (window.innerWidth <= 767 && !swiperInstance) {
+          swiperInstance = new Swiper('.blog-recent__cards', {
+              slidesPerView: 1.1, 
+              
+              spaceBetween: 24, 
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+              },
+              navigation: {
+                  nextEl: '.blog-recent__cards-button-next',
+                  prevEl: '.blog-recent__cards-button-prev',
+              },
+              on: {
+                  slideChange: function () {
+                      const current = swiperInstance.realIndex + 1; 
+                      const total = swiperInstance.slides.length; 
 
-document.addEventListener('DOMContentLoaded', () => {
-  const blogCards = document.querySelectorAll('.blog-card');
-  const loadMoreButton = document.querySelector('.blog-list__more');
-  let visibleCards = 9;
+                      
+                      document.querySelector('.blog-recent__cards-pagination-current').textContent = current.toString().padStart(2, '0');
+                      document.querySelector('.blog-recent__cards-pagination-total').textContent = total.toString().padStart(2, '0');
+                  }
+              },
+          });
 
-  function showCards() {
-      blogCards.forEach((card, index) => {
-          if (index < visibleCards) {
-              card.style.display = 'block';
-          } else {
-              card.style.display = 'none';
-          }
-      });
-  }
-
-  showCards();
-
-  loadMoreButton.addEventListener('click', () => {
-      visibleCards += 9;
-      showCards();
-  });
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Объявляем переменные
-  const whatWeDoLink = document.querySelector('#whatWeDoLink');
-  const submenu = document.querySelector('.header__submenu');
-  const whatWeDoLinkMobile = document.querySelector('#whatWeDoLinkMobile');
-  const submenuMobile = document.querySelector('.submenu-mobile');
-  const mobileBack = document.querySelector('.mobile-back');
-  const burgerMenu = document.querySelector('.burger-menu'); // Добавляем ссылку на элемент с классом burger-menu
-  const menu = burgerMenu ? burgerMenu.querySelector('.menu') : null; // Находим элемент .menu внутри burger-menu
-  const headerSecondary = document.querySelector('.header.secondary'); // Добавляем ссылку на элемент с классом header.secondary
-  let hideTimeout;
-
-  // Функция для обновления классов на header.secondary
-  function updateHeaderSecondary() {
-    const submenuActive = submenu.classList.contains('active');
-    const menuActive = menu && menu.classList.contains('active');
-
-    if (submenuActive || menuActive) {
-      headerSecondary.classList.add('active');
-    } else {
-      headerSecondary.classList.remove('active');
-    }
-  }
-
-  // Обработка клика на #whatWeDoLink
-  whatWeDoLink.addEventListener('click', function(e) {
-    e.preventDefault();
-    clearTimeout(hideTimeout);  
-    submenu.classList.toggle('active');
-    updateHeaderSecondary(); // Обновляем класс на header.secondary
-  });
-
-  // Обработка наведения на #whatWeDoLink
-  whatWeDoLink.addEventListener('mouseover', function() {
-    clearTimeout(hideTimeout);  
-    submenu.classList.add('active');
-    updateHeaderSecondary(); // Обновляем класс на header.secondary
-  });
-
-  // Обработка ухода мыши с #whatWeDoLink
-  whatWeDoLink.addEventListener('mouseout', function() {
-    hideTimeout = setTimeout(function() {
-      submenu.classList.remove('active');
-      updateHeaderSecondary(); // Обновляем класс на header.secondary
-    }, 300);  
-  });
-
-  // Обработка наведения на submenu
-  submenu.addEventListener('mouseover', function() {
-    clearTimeout(hideTimeout);  
-    submenu.classList.add('active');
-    updateHeaderSecondary(); // Обновляем класс на header.secondary
-  });
-
-  // Обработка ухода мыши с submenu
-  submenu.addEventListener('mouseout', function() {
-    hideTimeout = setTimeout(function() {
-      submenu.classList.remove('active');
-      updateHeaderSecondary(); // Обновляем класс на header.secondary
-    }, 100);  
-  });
-
-  // Обработка клика на #whatWeDoLinkMobile
-  if (whatWeDoLinkMobile) {
-    whatWeDoLinkMobile.addEventListener('click', function(e) {
-      e.preventDefault();
-      submenuMobile.classList.add('active');
-      mobileBack.classList.add('active');
-      if (menu) {
-        menu.classList.add('submenu-open'); // Добавляем класс submenu-open
+        
+          const initialTotal = swiperInstance.slides.length; 
+          document.querySelector('.blog-recent__cards-pagination-current').textContent = '01';
+          document.querySelector('.blog-recent__cards-pagination-total').textContent = initialTotal.toString().padStart(2, '0');
+      } else if (window.innerWidth > 767 && swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
       }
-      updateHeaderSecondary(); // Обновляем класс на header.secondary
-    });
   }
 
-  // Обработка клика на mobile-back
-  if (mobileBack) {
-    mobileBack.addEventListener('click', function() {
-      submenuMobile.classList.remove('active');
-      mobileBack.classList.remove('active');
-      if (menu) {
-        menu.classList.remove('submenu-open'); // Убираем класс submenu-open
-      }
-      updateHeaderSecondary(); // Обновляем класс на header.secondary
-    });
-  }
 
-  // Функция для отслеживания изменений класса у menu
-  function observeMenuClassChanges() {
-    if (menu) {
-      const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.attributeName === 'class') {
-            updateHeaderSecondary(); // Обновляем класс на header.secondary
-          }
-        });
-      });
+  initSwiper();
 
-      observer.observe(menu, { attributes: true });
-    }
-  }
 
-  observeMenuClassChanges(); // Запускаем наблюдение за изменениями класса у menu
+  window.addEventListener('resize', function () {
+      initSwiper();
+  });
 });

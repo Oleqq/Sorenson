@@ -50,7 +50,7 @@
 
             img {
                 width: 100%;
-                border-radius: 12px;
+                border-radius: 14px;
                 object-fit: cover;
 
                 
@@ -74,28 +74,52 @@
             color: #596b63;
 
             padding: 2rem 1rem 1rem;
+            
+            @media (max-width:467px) {
+                padding: 21px 1rem 16px;
+            }
         }
 
         h5 {
-            font-family: var(--font-family);
-            font-weight: 600;
-            font-size: 24px;
-            color: #596b63;
 
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-            hyphens: auto;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-        
+            @media (max-width:467px) {
+                margin: 0;
+            }
+            a {
+                text-decoration: none;
 
-            margin: 1rem 0;
+                font-family: var(--font-family);
+                font-weight: 600;
+                font-size: 24px;
+                color: #596b63;
+    
+                -webkit-hyphens: auto;
+                -moz-hyphens: auto;
+                -ms-hyphens: auto;
+                hyphens: auto;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                line-clamp: 3;
+                -webkit-box-orient: vertical;
+            
+    
+                margin: 1rem 0;
+    
+                padding: 0rem 1rem 0rem;
 
-            padding: 0rem 1rem 0rem;
+                transition: 1s ease;
+
+                @media (max-width:467px) {
+                    margin: 0;
+                }
+
+                &:hover {
+                    transition: 1s ease;
+                    text-shadow: 0 0 .5px #000;
+                    color: #000;
+                }
+            }
         }
 
         p {
@@ -117,6 +141,11 @@
             -webkit-box-orient: vertical;
 
             padding: 0rem 1rem 1rem;
+
+            @media (max-width:467px) {
+                padding: 0 1rem 32px;
+                margin-bottom: 0;
+            }
         }
 
 
@@ -167,6 +196,9 @@
 
             @media (max-width:767px) {
                 margin-left: 0;
+            }
+            @media (max-width:467px) {
+                margin-top: 32px;
             }
 
             svg {

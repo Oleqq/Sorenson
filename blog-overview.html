@@ -287,7 +287,58 @@
 
                     <div class="blog-recent__cards">
 
-                        <a class="blog-recent__card">
+                       <div class="swiper-wrapper">
+
+                        <a class="blog-recent__card swiper-slide">
+
+                            <div class="blog-recent__card--img">
+                                <img src="./img/blog-img-2.png" alt="">
+                            </div>
+
+                            <div class="blog-recent__card--info">
+                                <div class="ui__tags">
+                    
+                                    <div class="ui__tag">
+        
+                                        TAG 01
+        
+                                    </div>
+        
+                                    <div class="ui__tag">
+        
+                                        TAG 02
+        
+                                    </div>
+        
+                                    <div class="ui__tag">
+        
+                                        LONG TAG 03  
+        
+                                    </div>
+        
+        
+                                    
+        
+                                </div>
+    
+                                <div class="blog-recent__card--title">
+                                    <h3>
+                                        Sorenson Impact Foundation Announces Five New Program Related Investments Added to Its Portfolio in Q4 2023
+                                    </h3>
+                                </div>
+    
+                                <div class="section__link">
+                                    Read Now
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.853515 1.05682L15.1035 1.05682L15.1035 15.3068" stroke="#212322" stroke-width="1.5" />
+                                        <path d="M14.9507 1.21004L1.4668 15.3068" stroke="#212322" stroke-width="1.5" />
+                                      </svg>
+                                </div>
+                            </div>
+
+                        </a>
+
+                        <a class="blog-recent__card swiper-slide">
 
                             <div class="blog-recent__card--img">
                                 <img src="./img/blog-img-2.png" alt="">
@@ -341,7 +392,7 @@
 
                         </a>
 
-                        <a class="blog-recent__card">
+                        <a class="blog-recent__card swiper-slide">
 
                             <div class="blog-recent__card--img">
                                 <img src="./img/blog-img-2.png" alt="">
@@ -395,59 +446,7 @@
 
                         </a>
 
-                        <a class="blog-recent__card">
-
-                            <div class="blog-recent__card--img">
-                                <img src="./img/blog-img-2.png" alt="">
-                            </div>
-
-                            <div class="blog-recent__card--info">
-                                <div class="ui__tags">
-                    
-                                    <div class="ui__tag">
-        
-                                        TAG 01
-        
-                                    </div>
-        
-                                    <div class="ui__tag">
-        
-                                        TAG 02
-        
-                                    </div>
-        
-                                    <div class="ui__tag">
-        
-                                        LONG TAG 03  
-        
-                                    </div>
-        
-                                    <div class="ui__tag">
-        
-                                        TAG 04  
-        
-                                    </div>
-        
-                                    
-        
-                                </div>
-    
-                                <div class="blog-recent__card--title">
-                                    <h3>
-                                        Sorenson Impact Foundation Announces Five New Program Related Investments Added to Its Portfolio in Q4 2023
-                                    </h3>
-                                </div>
-    
-                                <div class="section__link">
-                                    Read Now
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0.853515 1.05682L15.1035 1.05682L15.1035 15.3068" stroke="#212322" stroke-width="1.5" />
-                                        <path d="M14.9507 1.21004L1.4668 15.3068" stroke="#212322" stroke-width="1.5" />
-                                      </svg>
-                                </div>
-                            </div>
-
-                        </a>
+                       </div>
 
                     </div>
 
@@ -1608,19 +1607,45 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
+      // Инициализация Select2
       $('#filter').select2({
         placeholder: 'Select a filter',
         width: 'resolve',
         minimumResultsForSearch: Infinity // Отключение поиска
       });
-  
+      
       $('#sort').select2({
         placeholder: 'Select sorting option',
         width: 'resolve',
         minimumResultsForSearch: Infinity // Отключение поиска
       });
+  
+      // Добавление кастомной SVG-иконки для каждого Select2
+      function addCustomIcon(selectId) {
+        var svgIcon = `
+          <svg class="custom-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.80273 8.52496L11.1571 13.8793L16.5114 8.52496" stroke="black" stroke-width="1.78478" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>`;
+        
+        $(`#${selectId}`).next('.select2-container').find('.select2-selection').append(svgIcon);
+  
+        // События открытия и закрытия Select2
+        $(`#${selectId}`).on('select2:open', function() {
+          $(this).next('.select2-container').find('.custom-icon').addClass('rotated');
+        });
+  
+        $(`#${selectId}`).on('select2:close', function() {
+          $(this).next('.select2-container').find('.custom-icon').removeClass('rotated');
+        });
+      }
+  
+      // Добавляем иконку для каждого Select2 элемента
+      addCustomIcon('filter');
+      addCustomIcon('sort');
     });
   </script>
+  
+  
   
 
 <script src="./js/swiper-bundle.min.js"></script>
